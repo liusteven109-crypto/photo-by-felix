@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo by Felix — 光影诗集</title>
+<meta name="description" content="Photo by Felix 摄影作品集：人物 / 风景 / 人文。承接人像写真、婚礼跟拍、家庭纪实、旅拍合作。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;600;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0c;
+    --bg2:#101012;
+    --ink:#ece7df;
+    --dim:#9a938a;
+    --line:rgba(236,231,223,.12);
+    --accent:#c9a15a;
+    --serif-en:"Cormorant Garamond",serif;
+    --serif-cn:"Noto Serif SC",serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--serif-cn);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#0b0b0c}
+  img{display:block;max-width:none}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- grain ---------- */
+  body::after{
+    content:"";position:fixed;inset:-50%;z-index:200;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity:.045;animation:grain 8s steps(10) infinite;
+  }
+  @keyframes grain{
+    0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-5%)}30%{transform:translate(3%,-2%)}
+    50%{transform:translate(-2%,4%)}70%{transform:translate(4%,2%)}90%{transform:translate(-3%,3%)}
+  }
+
+  /* ---------- cursor ---------- */
+  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:300;border-radius:50%}
+  .cursor-dot{width:6px;height:6px;background:var(--accent);transform:translate(-50%,-50%)}
+  .cursor-ring{width:34px;height:34px;border:1px solid rgba(201,161,90,.55);transform:translate(-50%,-50%);
+    transition:width .25s,height .25s,border-color .25s,background .25s}
+  .cursor-ring.is-hover{width:64px;height:64px;background:rgba(201,161,90,.08)}
+  @media (hover:none){.cursor-dot,.cursor-ring{display:none}}
+
+  /* ---------- progress ---------- */
+  .progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:150;transform-origin:0 50%;
+    transform:scaleX(0);background:var(--accent)}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:26px 4vw;mix-blend-mode:normal;
+    transition:background .4s,backdrop-filter .4s,padding .4s;
+  }
+  .nav.is-solid{background:rgba(11,11,12,.72);backdrop-filter:blur(14px);padding:16px 4vw;border-bottom:1px solid var(--line)}
+  .nav .brand{font-family:var(--serif-en);font-size:20px;letter-spacing:.28em;text-transform:uppercase}
+  .nav .brand em{color:var(--accent);font-style:normal}
+  .nav ul{display:flex;gap:34px;list-style:none}
+  .nav ul a{font-size:13px;letter-spacing:.3em;color:var(--dim);transition:color .3s;position:relative}
+  .nav ul a:hover{color:var(--ink)}
+  .nav ul a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .3s}
+  .nav ul a:hover::after{width:100%}
+  @media (max-width:768px){.nav ul{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;height:100vh;height:100svh;overflow:hidden}
+  .hero__media{position:absolute;inset:0;overflow:hidden}
+  .hero__media img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);
+    animation:kenburns 18s ease-out forwards}
+  @keyframes kenburns{to{transform:scale(1.0)}}
+  .hero__media::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(11,11,12,.42) 0%,rgba(11,11,12,.08) 40%,rgba(11,11,12,.82) 100%)}
+  .hero__content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 4vw 9vh;z-index:2}
+  .hero__eyebrow{font-size:12px;letter-spacing:.55em;color:var(--accent);margin-bottom:22px}
+  .hero__title{font-family:var(--serif-en);font-weight:400;
+    font-size:clamp(56px,11.5vw,168px);line-height:.94;letter-spacing:.02em;text-transform:uppercase}
+  .hero__title .row{display:block;overflow:hidden}
+  .hero__title .row span{display:inline-block;transform:translateY(110%);animation:rise 1.2s cubic-bezier(.16,1,.3,1) forwards}
+  .hero__title .row:nth-child(2) span{animation-delay:.12s}
+  @keyframes rise{to{transform:translateY(0)}}
+  .hero__sub{margin-top:26px;display:flex;align-items:center;gap:18px;color:var(--dim);
+    font-size:14px;letter-spacing:.4em}
+  .hero__sub::before{content:"";width:56px;height:1px;background:var(--accent)}
+  .hero__cue{position:absolute;right:4vw;bottom:9vh;display:flex;flex-direction:column;align-items:center;gap:14px;
+    color:var(--dim);font-size:11px;letter-spacing:.4em;writing-mode:vertical-rl}
+  .hero__cue i{display:block;width:1px;height:72px;background:linear-gradient(var(--accent),transparent);
+    animation:drip 2s ease-in-out infinite}
+  @keyframes drip{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}
+    55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  .hero__meta{position:absolute;top:110px;right:4vw;text-align:right;color:var(--dim);font-size:12px;
+    letter-spacing:.3em;line-height:2.2;z-index:2}
+  @media (max-width:768px){.hero__meta{display:none}.hero__cue{display:none}}
+
+  /* ---------- intro ---------- */
+  .intro{padding:22vh 4vw;max-width:1200px;margin:0 auto}
+  .intro h2{font-size:clamp(30px,4.6vw,62px);font-weight:300;line-height:1.5}
+  .intro h2 em{font-style:normal;color:var(--accent)}
+  .intro p{margin-top:38px;max-width:560px;color:var(--dim);font-size:16px;line-height:2.1;font-weight:300}
+  .intro__stats{margin-top:9vh;display:flex;gap:8vw;border-top:1px solid var(--line);padding-top:42px;flex-wrap:wrap}
+  .intro__stats div b{display:block;font-family:var(--serif-en);font-size:clamp(38px,4.6vw,64px);font-weight:400}
+  .intro__stats div b sup{font-size:.42em;color:var(--accent)}
+  .intro__stats div span{font-size:12px;letter-spacing:.35em;color:var(--dim)}
+
+  /* ---------- series ---------- */
+  .series{position:relative}
+  .series__head{padding:14vh 4vw 8vh;display:flex;align-items:flex-end;gap:4vw;flex-wrap:wrap}
+  .series__no{font-family:var(--serif-en);font-size:15px;letter-spacing:.4em;color:var(--accent);margin-bottom:18px}
+  .series__title{font-size:clamp(52px,8.5vw,128px);font-weight:900;line-height:1}
+  .series__en{font-family:var(--serif-en);text-transform:uppercase;font-size:clamp(18px,2.2vw,30px);
+    letter-spacing:.5em;color:transparent;-webkit-text-stroke:1px rgba(236,231,223,.35);margin-bottom:10px}
+  .series__desc{margin-left:auto;max-width:320px;color:var(--dim);font-size:14px;line-height:2;font-weight:300}
+  .series__viewport{overflow:hidden}
+  .series__track{display:flex;align-items:center;gap:5vw;padding:0 6vw 14vh;will-change:transform}
+  .slide{flex:0 0 auto;position:relative;cursor:pointer}
+  .slide__frame{overflow:hidden;background:#141416}
+  .slide__frame img{width:100%;height:100%;object-fit:cover;
+    transform:scale(1.02);transition:transform 1s cubic-bezier(.16,1,.3,1),filter 1s;filter:brightness(.92)}
+  .slide:hover .slide__frame img{transform:scale(1.08);filter:brightness(1.05)}
+  .slide--w .slide__frame{width:min(58vw,980px);height:min(64vh,660px)}
+  .slide--v .slide__frame{width:min(34vw,440px);height:min(68vh,720px)}
+  .slide__cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;gap:20px}
+  .slide__cap b{font-weight:400;font-size:15px;letter-spacing:.12em}
+  .slide__cap span{color:var(--dim);font-size:11px;letter-spacing:.28em;white-space:nowrap}
+  .slide__idx{position:absolute;top:-26px;left:0;font-family:var(--serif-en);font-size:12px;
+    letter-spacing:.3em;color:var(--accent)}
+  .slide--text{cursor:default}
+  .slide--text .inner{width:min(34vw,420px)}
+  .slide--text h3{font-size:clamp(22px,2.4vw,34px);font-weight:300;line-height:1.7}
+  .slide--text h3 em{font-style:normal;color:var(--accent)}
+  .slide--text p{margin-top:20px;color:var(--dim);font-size:13px;letter-spacing:.24em}
+
+  /* ---------- interlude ---------- */
+  .interlude{position:relative;height:110vh;overflow:hidden}
+  .interlude img{position:absolute;inset:0;width:100%;height:120%;object-fit:cover;will-change:transform}
+  .interlude::after{content:"";position:absolute;inset:0;background:rgba(11,11,12,.35)}
+  .interlude__quote{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;text-align:center;padding:0 6vw}
+  .interlude__quote h3{font-size:clamp(26px,4vw,54px);font-weight:300;line-height:1.8;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+  .interlude__quote h3 em{font-style:normal;color:var(--accent)}
+  .interlude__quote span{display:block;margin-top:18px;font-size:12px;letter-spacing:.5em;color:rgba(236,231,223,.75)}
+
+  /* ---------- about ---------- */
+  .about{padding:22vh 4vw;max-width:1200px;margin:0 auto;display:grid;
+    grid-template-columns:1.1fr .9fr;gap:6vw;align-items:start}
+  .about h2{font-size:clamp(30px,4vw,54px);font-weight:300;line-height:1.6}
+  .about h2 em{font-style:normal;color:var(--accent)}
+  .about .bio{margin-top:30px;color:var(--dim);font-size:15px;line-height:2.2;font-weight:300}
+  .services{list-style:none;border-top:1px solid var(--line)}
+  .services li{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+    padding:24px 0;border-bottom:1px solid var(--line);transition:padding-left .35s}
+  .services li:hover{padding-left:14px}
+  .services b{font-weight:400;font-size:17px;letter-spacing:.14em}
+  .services b i{font-style:normal;font-family:var(--serif-en);color:var(--accent);font-size:12px;
+    letter-spacing:.3em;margin-right:16px}
+  .services span{color:var(--dim);font-size:12px;letter-spacing:.2em;text-align:right}
+  @media (max-width:860px){.about{grid-template-columns:1fr}}
+
+  /* ---------- contact ---------- */
+  .contact{padding:10vh 4vw 16vh;text-align:center}
+  .contact .eyebrow{font-size:12px;letter-spacing:.5em;color:var(--accent)}
+  .contact h2{margin-top:26px;font-family:var(--serif-en);font-weight:400;
+    font-size:clamp(40px,7vw,110px);line-height:1.05;text-transform:uppercase}
+  .contact h2 em{font-style:italic;color:var(--accent)}
+  .contact p{margin-top:26px;color:var(--dim);font-size:15px;line-height:2.1;font-weight:300}
+  .wechat{margin:7vh auto 0;display:inline-flex;align-items:center;gap:36px;
+    border:1px solid var(--line);padding:34px 44px;text-align:left}
+  .wechat .qr{width:132px;height:132px;border:1px dashed rgba(201,161,90,.6);
+    display:flex;align-items:center;justify-content:center;color:var(--dim);
+    font-size:12px;letter-spacing:.3em;text-align:center;line-height:2}
+  .wechat .info b{display:block;font-weight:400;font-size:18px;letter-spacing:.14em;margin-bottom:10px}
+  .wechat .info span{color:var(--dim);font-size:13px;letter-spacing:.12em;line-height:2}
+  .wechat .info span i{font-style:normal;color:var(--accent)}
+  @media (max-width:640px){.wechat{flex-direction:column;text-align:center}.wechat .info{text-align:center}}
+
+  footer{border-top:1px solid var(--line);padding:34px 4vw;display:flex;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;color:var(--dim);font-size:12px;letter-spacing:.28em}
+
+  /* ---------- lightbox ---------- */
+  .lightbox{position:fixed;inset:0;z-index:400;background:rgba(8,8,9,.96);backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .45s}
+  .lightbox.is-open{opacity:1;pointer-events:auto}
+  .lightbox figure{max-width:88vw;max-height:84vh;position:relative}
+  .lightbox img{max-width:88vw;max-height:78vh;object-fit:contain;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+  .lightbox figcaption{margin-top:18px;display:flex;justify-content:space-between;gap:20px;
+    color:var(--dim);font-size:12px;letter-spacing:.3em}
+  .lightbox figcaption b{color:var(--ink);font-weight:400;font-size:14px;letter-spacing:.15em}
+  .lb__close{position:absolute;top:30px;right:4vw;background:none;border:none;color:var(--ink);
+    font-size:14px;letter-spacing:.4em;cursor:pointer;font-family:var(--serif-cn)}
+  .lb__nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--line);
+    color:var(--ink);width:56px;height:56px;border-radius:50%;font-size:20px;cursor:pointer;transition:.3s}
+  .lb__nav:hover{background:var(--accent);color:#0b0b0c;border-color:var(--accent)}
+  .lb__prev{left:3vw}.lb__next{right:3vw}
+
+  /* ---------- reveal ---------- */
+  .rv{opacity:0;transform:translateY(46px)}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:768px){
+    .series__track{flex-direction:column;align-items:stretch;gap:64px;transform:none!important;padding:0 6vw 12vh}
+    .slide--w .slide__frame,.slide--v .slide__frame{width:100%;height:auto;aspect-ratio:4/5}
+    .slide--w .slide__frame{aspect-ratio:3/2}
+    .slide--text .inner{width:100%}
+    .slide__idx{position:static;display:block;margin-bottom:12px}
+    .interlude{height:80vh}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav class="nav">
+  <a class="brand" href="#top">Photo <em>by</em> Felix</a>
+  <ul>
+    <li><a href="#portrait">人物</a></li>
+    <li><a href="#landscape">风景</a></li>
+    <li><a href="#documentary">人文</a></li>
+    <li><a href="#about">关于</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero__media"><img src="assets/landscape/dscf0717.jpg" alt="红海滩全景"></div>
+  <div class="hero__meta">FUJIFILM X-H2<br>EST. 2024<br>中国 · 盘锦 / 沈阳</div>
+  <div class="hero__content">
+    <div class="hero__eyebrow">摄影作品集 &nbsp;PORTFOLIO</div>
+    <h1 class="hero__title">
+      <span class="row"><span>Photo</span></span>
+      <span class="row"><span>by Felix</span></span>
+    </h1>
+    <div class="hero__sub">人物 · 风景 · 人文 &nbsp;—&nbsp; 把转瞬即逝的光，留在时间里</div>
+  </div>
+  <div class="hero__cue">SCROLL<i></i></div>
+</header>
+
+<!-- ============ INTRO ============ -->
+<section class="intro">
+  <h2 class="rv">快门按下的那一刻，<br>时间<em>为我停留</em>。</h2>
+  <p class="rv">我是 Felix，一名独立摄影师。从红海滩的赤色潮汐，到贵州山里的采茶人；从婚礼上的笑与泪，到孩子第一次被举过头顶——我收集那些真实、温热、无法重来的瞬间。</p>
+  <div class="intro__stats rv">
+    <div><b>47<sup>+</sup></b><span>精选作品</span></div>
+    <div><b>3</b><span>创作方向</span></div>
+    <div><b>2000<sup>+</sup></b><span>年度快门</span></div>
+  </div>
+</section>
+
+<!-- ============ SERIES 01 PORTRAIT ============ -->
+<section class="series" id="portrait">
+  <div class="series__head">
+    <div>
+      <div class="series__no">SERIES — 01</div>
+      <div class="series__en">Portrait</div>
+      <h2 class="series__title">人物</h2>
+    </div>
+    <p class="series__desc">每一张脸都是一本书。我不拍摆出来的表情，只等那个卸下防备的瞬间。</p>
+  </div>
+  <div class="series__viewport"><div class="series__track" data-cat="portrait"></div></div>
+</section>
+
+<!-- ============ INTERLUDE 1 ============ -->
+<section class="interlude">
+  <img src="assets/portrait/dscf0988.jpg" alt="光的走廊" data-plx>
+  <div class="interlude__quote">
+    <h3 class="rv">光是摄影师的笔，<br>而<em>等待</em>，是我的修行。<span>《光的走廊》 — 美术馆</span></h3>
+  </div>
+</section>
+
+<!-- ============ SERIES 02 LANDSCAPE ============ -->
+<section class="series" id="landscape">
+  <div class="series__head">
+    <div>
+      <div class="series__no">SERIES — 02</div>
+      <div class="series__en">Landscape</div>
+      <h2 class="series__title">风景</h2>
+    </div>
+    <p class="series__desc">山河不言语，自有万钧之力。风景摄影教会我的，是谦卑。</p>
+  </div>
+  <div class="series__viewport"><div class="series__track" data-cat="landscape"></div></div>
+</section>
+
+<!-- ============ INTERLUDE 2 ============ -->
+<section class="interlude">
+  <img src="assets/documentary/dscf0454.jpg" alt="出嫁前" data-plx>
+  <div class="interlude__quote">
+    <h3 class="rv">最好的照片，<br>往往诞生在<em>仪式开始之前</em>。<span>《出嫁前》 — 婚礼纪实</span></h3>
+  </div>
+</section>
+
+<!-- ============ SERIES 03 DOCUMENTARY ============ -->
+<section class="series" id="documentary">
+  <div class="series__head">
+    <div>
+      <div class="series__no">SERIES — 03</div>
+      <div class="series__en">Documentary</div>
+      <h2 class="series__title">人文</h2>
+    </div>
+    <p class="series__desc">生活的剧本比任何导演都精彩。我只是那个在场的人。</p>
+  </div>
+  <div class="series__viewport"><div class="series__track" data-cat="documentary"></div></div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div>
+    <h2 class="rv">关于 <em>Felix</em></h2>
+    <p class="bio rv">独立摄影师，富士 X-H2 使用者。偏爱自然光与现场感，相信真实比完美更有力量。<br><br>
+    作品聚焦人物、风景与人文三个方向——从盘锦红海滩到贵州村寨，从婚礼现场到家里的客厅。现为开放约拍状态，承接以下拍摄合作。</p>
+  </div>
+  <ul class="services rv">
+    <li><b><i>S.01</i>人像写真</b><span>个人 / 情侣 / 闺蜜</span></li>
+    <li><b><i>S.02</i>婚礼纪实</b><span>婚礼跟拍 / 领证跟拍</span></li>
+    <li><b><i>S.03</i>家庭纪实</b><span>周岁 / 百日 / 亲子</span></li>
+    <li><b><i>S.04</i>旅拍合作</b><span>旅行跟拍 / 品牌拍摄</span></li>
+  </ul>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="eyebrow rv">COMMERCIAL — 商业合作</div>
+  <h2 class="rv">Let's make<br><em>something timeless</em></h2>
+  <p class="rv">喜欢我的风格？欢迎加微信聊聊你的想法，<br>档期、报价、拍摄方案，我们慢慢聊。</p>
+  <div class="wechat rv">
+    <!-- TODO: 把下面这个占位方块替换成你的微信二维码图片，例如：
+         <img src="assets/wechat-qr.jpg" style="width:132px;height:132px;object-fit:cover"> -->
+    <div class="qr">微信二维码<br>占位</div>
+    <div class="info">
+      <b>微信预约咨询</b>
+      <span>微信号：<i>YOUR_WECHAT_ID</i>（替换为你的微信号）<br>备注「约拍」即可 · 通常 24 小时内回复</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 PHOTO BY FELIX</span>
+  <span>人物 / 风景 / 人文</span>
+  <span>SHOT ON FUJIFILM</span>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox">
+  <button class="lb__close" id="lbClose">关闭 ×</button>
+  <button class="lb__nav lb__prev" id="lbPrev">←</button>
+  <figure><img id="lbImg" src="" alt=""><figcaption><b id="lbTitle"></b><span id="lbMeta"></span></figcaption></figure>
+  <button class="lb__nav lb__next" id="lbNext">→</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+/* ================= DATA ================= */
+const PHOTOS = {
+  portrait: [
+    {f:"dscf0272", t:"喜上眉梢", l:"婚礼纪实", o:"v"},
+    {f:"dscf0988", t:"光的走廊", l:"美术馆", o:"v"},
+    {f:"dscf3365", t:"冬日芦苇", l:"香水湖公园", o:"w"},
+    {f:"dscf0968", t:"留白", l:"美术馆", o:"w"},
+    {f:"dscf0692", t:"碱蓬草的风", l:"盘锦·红海滩", o:"v"},
+    {f:"dscf0828", t:"田野钢琴师", l:"盘锦·红海滩", o:"w"},
+    {f:"dscf0957", t:"几何之间", l:"美术馆", o:"v"},
+    {f:"dscf2627", t:"玻璃之后", l:"咖啡馆", o:"w"},
+    {f:"dscf0467", t:"待嫁", l:"婚礼纪实", o:"w"},
+    {f:"dscf0446", t:"我们", l:"婚礼纪实", o:"w"},
+    {f:"2025-02-22-114140", t:"托举", l:"辽河左岸·家", o:"w"},
+    {f:"2025-02-23-094557", t:"起飞", l:"辽河左岸·家", o:"w"},
+    {f:"2025-11-13-174012", t:"周岁", l:"周岁宴", o:"w"},
+    {f:"dscf0753", t:"旋", l:"美术馆", o:"w"},
+    {f:"dscf0902", t:"镜中人", l:"美术馆", o:"w"},
+    {f:"dscf3018", t:"捉迷藏", l:"香水湖公园", o:"w"},
+    {f:"dscf3954", t:"花田笑", l:"贵州", o:"w"},
+    {f:"dscf2444", t:"看展的人", l:"美术馆", o:"w"},
+    {f:"2025-02-22-114257", t:"初光", l:"辽河左岸·家", o:"w"},
+    {f:"dscf7515", t:"山风", l:"北方山野", o:"w"},
+    {f:"dscf7530", t:"远行客", l:"北方山野", o:"w"},
+    {f:"dscf0610", t:"芦苇与光", l:"盘锦·红海滩", o:"v"},
+  ],
+  landscape: [
+    {f:"dscf0717", t:"赤潮", l:"盘锦·红海滩", o:"w"},
+    {f:"dscf0669", t:"红原", l:"盘锦·红海滩", o:"v"},
+    {f:"dscf3973", t:"一羽止水", l:"贵州", o:"w"},
+    {f:"dscf0923", t:"飞屋", l:"盘锦·红海滩", o:"v"},
+    {f:"dscf3929", t:"雾隐", l:"贵州", o:"w"},
+    {f:"dscf0851", t:"金色呼吸", l:"盘锦·红海滩", o:"w"},
+    {f:"dscf7589", t:"山巅", l:"北方山野", o:"w"},
+    {f:"dscf7591", t:"大地之上", l:"北方山野", o:"w"},
+    {f:"dscf7509", t:"湖光两人", l:"北方山野", o:"v"},
+  ],
+  documentary: [
+    {f:"dscf3915", t:"采茶人", l:"贵州", o:"w"},
+    {f:"dscf3898", t:"山里琴声", l:"贵州", o:"v"},
+    {f:"dscf3826", t:"过客", l:"贵州", o:"w"},
+    {f:"dscf1550", t:"营地笑语", l:"郊野营地", o:"w"},
+    {f:"dscf1954", t:"气球狗", l:"郊野营地", o:"w"},
+    {f:"dscf1187", t:"追风", l:"郊野营地", o:"w"},
+    {f:"dscf1913", t:"营地烟火", l:"郊野营地", o:"w"},
+    {f:"dscf5896", t:"汀步", l:"香水湖", o:"w"},
+    {f:"dscf4969", t:"岁礼", l:"生日宴", o:"w"},
+    {f:"dscf0284", t:"轻轻一吻", l:"婚礼纪实", o:"v"},
+    {f:"dscf0454", t:"出嫁前", l:"婚礼纪实", o:"v"},
+    {f:"dscf2527", t:"观字", l:"美术馆", o:"w"},
+    {f:"img_20251130_190734", t:"千年一瞬", l:"古寺", o:"w"},
+    {f:"2025-02-22-115626", t:"掌心宝", l:"辽河左岸·家", o:"w"},
+    {f:"2025-11-13-202557", t:"满堂红", l:"周岁宴", o:"v"},
+    {f:"dscf3988", t:"守艺人", l:"贵州", o:"w"},
+  ],
+};
+const SERIES_TEXT = {
+  portrait:    {h:"在<em>松弛</em>降临的一秒按下快门。", p:"人像 · 婚礼 · 家庭"},
+  landscape:   {h:"把<em>山河</em>装进一帧静默。", p:"自然 · 旅途 · 季节"},
+  documentary: {h:"真实生活里的<em>决定性瞬间</em>。", p:"街头 · 仪式 · 烟火"},
+};
+
+/* ================= BUILD TRACKS ================= */
+const allFlat = [];
+Object.entries(PHOTOS).forEach(([cat, list]) => {
+  const track = document.querySelector(`[data-cat="${cat}"]`);
+  const st = SERIES_TEXT[cat];
+  const textSlide = document.createElement("div");
+  textSlide.className = "slide slide--text";
+  textSlide.innerHTML = `<div class="inner"><h3>${st.h}</h3><p>${st.p}</p></div>`;
+  track.appendChild(textSlide);
+  list.forEach((p, i) => {
+    const rec = {...p, cat};
+    allFlat.push(rec);
+    const el = document.createElement("figure");
+    el.className = `slide slide--${p.o === "v" ? "v" : "w"}`;
+    el.innerHTML = `
+      <span class="slide__idx">${String(i + 1).padStart(2, "0")} / ${list.length}</span>
+      <div class="slide__frame"><img loading="lazy" src="assets/${cat}/thumbs/${p.f}.jpg"
+           data-full="assets/${cat}/${p.f}.jpg" alt="${p.t}"></div>
+      <figcaption class="slide__cap"><b>《${p.t}》</b><span>${p.l}</span></figcaption>`;
+    el.addEventListener("click", () => openLB(allFlat.indexOf(rec)));
+    track.appendChild(el);
+  });
+});
+
+/* ================= SMOOTH SCROLL + GSAP ================= */
+gsap.registerPlugin(ScrollTrigger);
+const lenis = new Lenis({lerp: 0.09});
+lenis.on("scroll", ScrollTrigger.update);
+gsap.ticker.add(t => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    lenis.scrollTo(a.getAttribute("href"), {offset: 0, duration: 1.4});
+  });
+});
+
+/* progress + nav */
+gsap.to(".progress", {scaleX: 1, ease: "none",
+  scrollTrigger: {start: 0, end: "max", scrub: 0.3}});
+const nav = document.querySelector(".nav");
+ScrollTrigger.create({start: 80, onToggle: s => nav.classList.toggle("is-solid", s.isActive)});
+
+/* horizontal scroll per series (desktop) */
+const mm = gsap.matchMedia();
+mm.add("(min-width: 769px)", () => {
+  document.querySelectorAll(".series").forEach(sec => {
+    const track = sec.querySelector(".series__track");
+    const viewport = sec.querySelector(".series__viewport");
+    const dist = () => track.scrollWidth - viewport.clientWidth;
+    gsap.to(track, {
+      x: () => -dist(),
+      ease: "none",
+      scrollTrigger: {
+        trigger: viewport,
+        start: "top 12%",
+        end: () => `+=${dist()}`,
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      }
+    });
+  });
+});
+
+/* reveals */
+document.querySelectorAll(".rv").forEach(el => {
+  gsap.to(el, {opacity: 1, y: 0, duration: 1.2, ease: "power3.out",
+    scrollTrigger: {trigger: el, start: "top 85%"}});
+});
+
+/* parallax interludes */
+document.querySelectorAll("[data-plx]").forEach(img => {
+  gsap.fromTo(img, {yPercent: -10}, {yPercent: 10, ease: "none",
+    scrollTrigger: {trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true}});
+});
+
+/* hero parallax out */
+gsap.to(".hero__media img", {yPercent: 14, ease: "none",
+  scrollTrigger: {trigger: ".hero", start: "top top", end: "bottom top", scrub: true}});
+gsap.to(".hero__content", {opacity: 0, y: -60, ease: "none",
+  scrollTrigger: {trigger: ".hero", start: "top top", end: "60% top", scrub: true}});
+
+/* ================= CURSOR ================= */
+const dot = document.querySelector(".cursor-dot"), ring = document.querySelector(".cursor-ring");
+let mx = -100, my = -100, rx = -100, ry = -100;
+window.addEventListener("mousemove", e => {mx = e.clientX; my = e.clientY;});
+(function loop(){
+  rx += (mx - rx) * .14; ry += (my - ry) * .14;
+  dot.style.transform = `translate(${mx - 3}px,${my - 3}px)`;
+  ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll(".slide, a, button").forEach(el => {
+  el.addEventListener("mouseenter", () => ring.classList.add("is-hover"));
+  el.addEventListener("mouseleave", () => ring.classList.remove("is-hover"));
+});
+
+/* ================= LIGHTBOX ================= */
+const lb = document.getElementById("lightbox"),
+      lbImg = document.getElementById("lbImg"),
+      lbTitle = document.getElementById("lbTitle"),
+      lbMeta = document.getElementById("lbMeta");
+let cur = 0;
+function openLB(i){
+  cur = (i + allFlat.length) % allFlat.length;
+  const p = allFlat[cur];
+  lbImg.src = `assets/${p.cat}/${p.f}.jpg`;
+  lbImg.alt = p.t;
+  lbTitle.textContent = `《${p.t}》`;
+  lbMeta.textContent = `${p.l} · ${cur + 1} / ${allFlat.length}`;
+  lb.classList.add("is-open");
+  lenis.stop();
+}
+function closeLB(){ lb.classList.remove("is-open"); lenis.start(); }
+document.getElementById("lbClose").onclick = closeLB;
+document.getElementById("lbPrev").onclick = e => {e.stopPropagation(); openLB(cur - 1);};
+document.getElementById("lbNext").onclick = e => {e.stopPropagation(); openLB(cur + 1);};
+lb.addEventListener("click", e => { if (e.target === lb) closeLB(); });
+window.addEventListener("keydown", e => {
+  if (!lb.classList.contains("is-open")) return;
+  if (e.key === "Escape") closeLB();
+  if (e.key === "ArrowLeft") openLB(cur - 1);
+  if (e.key === "ArrowRight") openLB(cur + 1);
+});
+</script>
+</body>
+</html>
