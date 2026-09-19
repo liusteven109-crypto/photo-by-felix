@@ -1,24 +1,9 @@
 'use strict';
-const categoryNames={travel:'旅途',portrait:'人像',life:'日常',window:'窗光'};
-const gallery=document.querySelector('#gallery');
-const filters=[...document.querySelectorAll('[data-filter]')];
+const categoryNames={landscape:'风景',human:'人文',light:'光影',portrait:'人像'};
 const dialog=document.querySelector('.lightbox');
 const largeImage=document.querySelector('#light-image');
 const loading=document.querySelector('#light-loading');
-const featuredIds=['02','19','20','21','22','23','07','01','03','09','04'];
-const orderedPhotos=[...gallery.querySelectorAll('.photo-link')].map(link=>PHOTOS.find(p=>p.id===link.dataset.photo));
-const matches=(p,filter)=>filter==='all'||(filter==='featured'?featuredIds.includes(p.id):filter==='window'?p.collection==='window':p.category===filter);
-let activeFilter='featured', pool=orderedPhotos.filter(p=>matches(p,'featured')), currentIndex=0, touchStart=null;
-function layoutCards(){let index=0;gallery.querySelectorAll('.work-card').forEach(card=>{if(!card.hidden)card.dataset.position=String(index++%6);});}
-layoutCards();
-filters.forEach(button=>button.addEventListener('click',()=>{
-  activeFilter=button.dataset.filter;
-  filters.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-  const count=PHOTOS.filter(p=>matches(p,activeFilter)).length;
-  gallery.querySelectorAll('.work-card').forEach(card=>{card.hidden=activeFilter==='featured'?card.dataset.featured!=='true':activeFilter==='window'?card.dataset.collection!=='window':activeFilter!=='all'&&card.dataset.category!==activeFilter;card.classList.remove('reveal-pending');});
-  document.querySelector('#filter-status').textContent=`${activeFilter==='all'?'':(activeFilter==='featured'?'精选':categoryNames[activeFilter])+' · '}${count} 件作品`;
-  layoutCards();
-}));
+let pool=PHOTOS,currentIndex=0,touchStart=null;
 function showPhoto(index){
   currentIndex=(index+pool.length)%pool.length;
   const photo=pool[currentIndex];
@@ -34,8 +19,8 @@ largeImage.addEventListener('error',()=>{loading.hidden=false;loading.textConten
 document.querySelectorAll('.photo-link').forEach(link=>link.addEventListener('click',event=>{
   if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
   event.preventDefault();
-  pool=orderedPhotos.filter(p=>matches(p,activeFilter));
-  if(!pool.some(p=>p.id===link.dataset.photo))pool=orderedPhotos;
+  const selected=PHOTOS.find(p=>p.id===link.dataset.photo);
+  pool=PHOTOS.filter(p=>p.chapter===selected.chapter);
   showPhoto(pool.findIndex(p=>p.id===link.dataset.photo));
   dialog.showModal();document.body.classList.add('viewing');
 }));
@@ -53,13 +38,11 @@ if(!document.fullscreenEnabled)fullscreenButton.hidden=true;
 fullscreenButton.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await dialog.requestFullscreen();}catch{fullscreenButton.hidden=true;}});
 document.addEventListener('fullscreenchange',()=>{fullscreenButton.textContent=document.fullscreenElement?'退出全屏 ⛶':'全屏 ⛶';});
 dialog.addEventListener('close',()=>{if(document.fullscreenElement===dialog)document.exitFullscreen().catch(()=>{});});
-const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-if('IntersectionObserver' in window&&!reduceMotion.matches){
-  const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.remove('reveal-pending');observer.unobserve(entry.target);}});},{threshold:.08});
-  gallery.querySelectorAll('.work-card:not([hidden])').forEach(card=>{card.classList.add('reveal-pending');observer.observe(card);});
-}
+const chapters=[...document.querySelectorAll('.exhibition-chapter')];
+const chapterLinks=[...document.querySelectorAll('.chapter-nav a')];
 let scrollFrame=0;
-function updateProgress(){const max=document.documentElement.scrollHeight-window.innerHeight;document.querySelector('.reading-progress').style.transform=`scaleX(${max>0?window.scrollY/max:0})`;scrollFrame=0;}
+function updateProgress(){const max=document.documentElement.scrollHeight-window.innerHeight;document.querySelector('.reading-progress').style.transform=`scaleX(${max>0?window.scrollY/max:0})`;let active=chapters[0];for(const chapter of chapters){if(chapter.getBoundingClientRect().top<=150)active=chapter;}chapterLinks.forEach(link=>{if(link.hash==='#'+active.id)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});scrollFrame=0;}
 window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(updateProgress);},{passive:true});
 window.addEventListener('resize',updateProgress);
 updateProgress();
+
