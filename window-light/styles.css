@@ -15,3 +15,6 @@
 
 h2{font-family:var(--serif);font-weight:400;line-height:1.5;letter-spacing:-.025em;margin:0}h2 em{font-style:normal;font-weight:400;color:#7b8173}
 @media(max-width:600px){.photo-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.work-card.mobile-wide{grid-column:1/-1}.chapter-nav span{display:inline}}
+
+.family-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:30px 0 22px;padding-top:26px;border-top:1px solid var(--line);scroll-margin-top:86px}.family-heading h4{font-family:var(--serif);font-size:30px;font-weight:400;margin:8px 0 0}.family-heading>p{font-size:12px;color:var(--muted);line-height:1.9;margin:0}.family-heading .kicker{font-size:9px}
+@media(max-width:600px){.family-heading{display:block;margin:24px 0 18px;padding-top:22px}.family-heading h4{font-size:26px}.family-heading>p{font-size:11px;margin-top:10px}.family-collages{grid-template-columns:1fr 1.1fr;align-items:start;gap:16px 12px}.family-collages .work-card:nth-child(1){grid-column:1;grid-row:1}.family-collages .work-card:nth-child(2){grid-column:1;grid-row:2}.family-collages .work-card:nth-child(3){grid-column:2;grid-row:1/3;align-self:center}.family-collages figcaption{gap:5px;font-size:10px}}
