@@ -3,7 +3,7 @@
 Felix 的两场摄影展，共用一个 GitHub Pages 站点。
 
 - [光影诗集](https://liusteven109-crypto.github.io/photo-by-felix/)：原有的 47 张摄影作品。
-- [窗光作品展](https://liusteven109-crypto.github.io/photo-by-felix/window-light/)：53 幅作品，按风景（8）、人文（18）、光影（9）、人像（18）四章展开，包含 6 张窗光人像与「家的温度」6 幅家庭摄影及拼贴。
+- [窗光作品展](https://liusteven109-crypto.github.io/photo-by-felix/window-light/)：52 幅作品，按风景（8）、人文（18）、光影（8）、人像（18）四章展开，包含 6 张窗光人像与「家的温度」6 幅家庭摄影及拼贴。
 
 ## 发布
 
