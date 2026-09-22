@@ -3,7 +3,7 @@
 Felix 的两场摄影展，共用一个 GitHub Pages 站点。
 
 - [光影诗集](https://liusteven109-crypto.github.io/photo-by-felix/)：原有的 47 张摄影作品。
-- [窗光作品展](https://liusteven109-crypto.github.io/photo-by-felix/window-light/)：54 幅作品，按风景（8）、人文（18）、光影（8）、人像（20）四章展开，包含 6 张窗光人像与「家的温度」8 幅家庭摄影及拼贴。
+- [窗光作品展](https://liusteven109-crypto.github.io/photo-by-felix/window-light/)：67 幅作品，按风景（8）、人文（25）、光影（10）、人像（24）四章展开，包含 6 张窗光人像与「家的温度」8 幅家庭摄影及拼贴。
 
 ## 发布
 
@@ -18,3 +18,5 @@ GitHub Pages 从 `main` 分支根目录发布。修改对应目录并推送后�
 「家的温度」先展示三张亲子和全家福，再将《掌心的世界》《举起晴天》并列，最后展示三幅家庭拼贴。保留完整构图，手机为长条拼贴单独编排；可从 `window-light/#family` 直接进入。
 
 露营组照「风里的童年」5 张（含原有《追风》）与生日组照「岁月欢聚」2 张收入人文章；《喜字之间》收入光影章。
+
+新增香水湖组照「湖畔的童年」7 张，从玩耍、落叶到湖边相伴，位于人文章，可从 `window-light/#lakeside` 直达。草原与贵州花田 4 张组成「在路上的笑容」，位于人像章，可从 `window-light/#travel-portraits` 直达。《拾级一瞬》《一窗山野》收入光影章。全部保留原始构图，以 900px / 1800px WebP 展示副本加载。
