@@ -3,7 +3,7 @@
 Felix 的两场摄影展，共用一个 GitHub Pages 站点。
 
 - [光影诗集](https://liusteven109-crypto.github.io/photo-by-felix/)：原有的 47 张摄影作品。
-- [窗光作品展](https://liusteven109-crypto.github.io/photo-by-felix/window-light/)：58 幅作品，按风景（6）、人文（23）、光影（10）、人像（19）四章展开，包含 5 张窗光人像与「家的温度」6 幅家庭摄影及拼贴。
+- [窗光作品展](https://liusteven109-crypto.github.io/photo-by-felix/window-light/)：61 幅作品，按风景（9）、人文（23）、光影（10）、人像（19）四章展开，包含 5 张窗光人像与「家的温度」6 幅家庭摄影及拼贴。
 
 ## 发布
 
@@ -31,4 +31,10 @@ GitHub Pages 从 `main` 分支根目录发布。修改对应目录并推送后�
 
 编排借鉴 [Nadav Kander 的系列组织](https://www.nadavkander.com/works-in-series) 与 [川内伦子 M/E 展览的摄影书式观看关系](https://rinkokawauchi-me.exhibit.jp/en/works/)。展示的摄影作品均为 Felix 的原有选片。
 
-维护入口：`_tools/layout_exhibition.py` 保存组图顺序，`_tools/exhibition.html` 保存页面模板，`window-light/styles.css` 保存布局样式。在仓库根目录运行 `python3 _tools/layout_exhibition.py` 生成 HTML 与灯箱顺序；无需安装依赖。生成器会校验 58 张选片完整且无重复。生成文件提交后由 GitHub Pages 发布。
+维护入口：`_tools/layout_exhibition.py` 保存组图顺序，`_tools/exhibition.html` 保存页面模板，`window-light/styles.css` 保存布局样式。在仓库根目录运行 `python3 _tools/layout_exhibition.py` 生成 HTML 与灯箱顺序；无需安装依赖。生成器会校验选片完整且无重复，并同步页面数量。生成文件提交后由 GitHub Pages 发布。
+
+## 2026-09-25 补充沿途风景
+
+新增《风在稻田里》《石隙生长》《石巷深处》三张，组成「田野与石巷」错落三联，可从 `window-light/#fields-and-lanes` 进入。风景章节共 9 幅，全展共 61 幅、25 组跨页；保留完整构图。
+
+新增选片与相对来源记录在 `_tools/landscape_additions.json`。需要重新制作展示副本时，安装 Pillow 后运行 `python3 _tools/prepare_landscapes.py /path/to/photo-library`，再运行排版生成器。原始照片不进入发布目录。

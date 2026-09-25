@@ -66,6 +66,39 @@ const PHOTOS = [
     "chapter": "landscape"
   },
   {
+    "id": "69",
+    "title": "风在稻田里",
+    "description": "金色稻田向远处铺开，黄色风车立在天际，游人的身影散落其间。",
+    "src": "images/69-landscape-1800.webp",
+    "thumb": "images/69-landscape-900.webp",
+    "original_width": 5152,
+    "original_height": 7728,
+    "category": "landscape",
+    "chapter": "landscape"
+  },
+  {
+    "id": "70",
+    "title": "石隙生长",
+    "description": "灰色石墙的缝隙里，绿叶、紫叶与多肉植物交错生长。",
+    "src": "images/70-landscape-1800.webp",
+    "thumb": "images/70-landscape-900.webp",
+    "original_width": 2560,
+    "original_height": 3840,
+    "category": "landscape",
+    "chapter": "landscape"
+  },
+  {
+    "id": "71",
+    "title": "石巷深处",
+    "description": "木门与石墙围成层层庭院，一条小路穿过绿意，通向门后的日常。",
+    "src": "images/71-landscape-1800.webp",
+    "thumb": "images/71-landscape-900.webp",
+    "original_width": 2560,
+    "original_height": 3840,
+    "category": "landscape",
+    "chapter": "landscape"
+  },
+  {
     "id": "17",
     "title": "田间",
     "category": "human",
