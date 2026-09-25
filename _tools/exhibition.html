@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Photo by Felix — 从远方，到身旁</title>
+<meta name="description" content="Felix 的个人摄影展：58 幅作品，沿着风景、人文、光影与人像，从远方走到身旁。拍摄与合作：liufei109@163.com。">
+<meta name="theme-color" content="#f2f0e9">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23282d28'/%3E%3Cpath d='M18 47V17h28v6H25v7h16v6H25v11' fill='%23f2f0e9'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css?v={{VERSION}}">
+</head>
+<body>
+<a class="skip" href="#works">跳到作品</a><div class="reading-progress" aria-hidden="true"></div>
+<header class="site-header"><a class="brand" href="#top">Photo <em>by</em> Felix.</a><p class="masthead-note">摄影，是与世界相处的方式。</p><nav aria-label="主导航"><a href="#works">作品</a><a href="#about">关于</a><a href="#contact">联系 ↗</a></nav></header>
+<main id="top">
+<section class="cover" aria-labelledby="site-title">
+<div class="cover-heading"><div><p class="kicker">A personal exhibition / 摄影手记</p><h1 id="site-title">从远方，<em>到身旁。</em></h1></div><p class="cover-note">在辽阔处出发，<br>在细微处停留。<span>58 PHOTOGRAPHS · 04 CHAPTERS</span></p></div>
+<div class="cover-images">{{COVER_LAND}}<div class="cover-aside"><p class="cover-side-note">LANDSCAPES, LIGHT<br>& THE PEOPLE WE MEET.</p>{{COVER_PORTRAIT}}</div></div>
+<div class="cover-footer"><span>一场关于看见与靠近的漫游</span><a href="#works">翻开作品集 <span aria-hidden="true">↓</span></a></div>
+</section>
+<section class="works" id="works" aria-labelledby="works-title">
+<div class="exhibition-heading"><h2 id="works-title">观看的路径</h2><p>风景 → 人文 → 光影 → 人像</p><span>THE EXHIBITION</span></div>
+<nav class="chapter-nav" aria-label="展览章节">{{NAV}}</nav>
+<div id="gallery">{{CHAPTERS}}</div>
+<div class="collection-end"><p class="kicker">END OF THE EXHIBITION</p><p>走过远方，也看见身旁。</p><a href="#works">回到目录 ↑</a></div>
+</section>
+<section class="about" id="about"><div><p class="kicker">BEHIND THE LENS</p><h2>我看见的，<br><em>也想让你看见。</em></h2></div><div class="about-copy"><p>我是 Felix。拍摄旅途、自然光下的人像，<br>以及日常里值得留下的片刻。</p><p>照片是一次停留。<br>也是多年以后，重新靠近一个瞬间的方式。</p><span class="signature">Felix.</span></div></section>
+<section class="contact" id="contact"><p class="kicker">LET’S CREATE SOMETHING TO REMEMBER</p><a class="contact-title" href="mailto:liufei109@163.com?subject=Photo%20by%20Felix%20拍摄与合作"><h2>下一个故事，<em>从这里开始。</em></h2><span aria-hidden="true">↗</span></a><div class="contact-bottom"><p>人像摄影 / 品牌影像 / 图片使用咨询</p><a href="mailto:liufei109@163.com">liufei109@163.com ↗</a></div></section>
+</main>
+<footer class="site-footer"><a class="brand" href="#top">Photo <em>by</em> Felix.</a><span>© 2026 · 摄影作品版权保留</span><a href="../">另一本作品集 · 光影诗集 ↗</a><a href="#top">返回开篇 ↑</a></footer>
+<dialog class="lightbox" aria-labelledby="light-title"><div class="light-top"><span>PHOTO BY FELIX</span><div><button type="button" id="light-fullscreen" aria-label="切换全屏">全屏 ⛶</button><button type="button" id="light-close" aria-label="关闭大图">关闭 ×</button></div></div><div class="light-stage"><button type="button" id="light-prev" aria-label="上一张">←</button><div class="light-image-wrap"><img id="light-image" alt=""><p id="light-loading" role="status">正在加载照片…</p></div><button type="button" id="light-next" aria-label="下一张">→</button></div><div class="light-caption"><div><h2 id="light-title"></h2><p id="light-description"></p></div><span id="light-counter" aria-live="polite"></span></div><p class="key-hint">← → 切换作品 · Esc 关闭</p></dialog>
+<script src="photos.js?v={{VERSION}}"></script><script src="gallery.js?v={{VERSION}}"></script>
+</body></html>
